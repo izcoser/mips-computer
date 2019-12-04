@@ -1,0 +1,22 @@
+add rd, rs, rt
+
+add $3, $1, $2
+
+Instruction, in binary:
+0       $1      $2  $3      0       0x20
+000000 00001 00010 00011 00000 100000 = 0x221820
+31_26  25_21 20_16 15_11
+
+In the add instruction, Control has to make:
+RegDst = 1 (so that $3 is selected as the WriteRegister)
+Branch = 0 (no branch in add operation)
+MemRead = 0 (not going to read from memory)
+MemtoReg = 0 (not going to write memory data into a register)
+MemWrite = 0 (not writing in memory)
+RegWrite = 1 (need to write the result of the operation in $3)
+whb = ?
+ALUOp = ?
+
+1000001 = 0x41
+
+
