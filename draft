@@ -50,4 +50,41 @@ ALUOp = 000 (add)
 
 -----------------
 
+lw $3, 100($2)
+Loads a word from mem[$2 + 100] to $3.
 
+Instruction:
+0x23	$2	$3	100
+100011	00010	00011	0000000001100100 = 0x8C430064
+31_26	25_21	20_16	15_0
+
+RegDst = 0
+Branch = 0
+MemRead = 1
+MemtoReg = 1
+MemWrite = 0
+ALUSrc = 1
+RegWrite = 1
+whb = 00 (convention: 00 -> w, 01 -> h, 10 -> b)
+ALUOp = 000 (will add offset to $2)
+
+0000000001101100 = 0X6C
+Not working, memory is faulty (doesn't read).
+
+---
+
+Skipping all data transfer for now since memory is faulty.
+
+---
+
+and $3, $1, $2
+0	$1	$2	$3	0	0x24
+000000	00001	00010	00011	00000	100100 = 0x221824
+31_26	25_21	20_16	15_11
+
+RegWrite = 1
+RegDst = 1
+ALUOp = 110
+Rest all 0
+
+6041 on ROM, same position as add and sub.
