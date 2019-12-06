@@ -69,11 +69,134 @@ whb = 00 (convention: 00 -> w, 01 -> h, 10 -> b)
 ALUOp = 000 (will add offset to $2)
 
 0000000001101100 = 0X6C
-Not working, memory is faulty (doesn't read).
+When the instruction is loaded, memory needs another clock cycle to read Address and output the value to ReadData.
+But, if we do another clock cycle, we go to a new instruction, which changes Address. So this isn't working properly. Temporary fix: add a real clock to memory and leave manual clock to PC and Registers. All memory data transfer functions will have this problem.
 
 ---
 
-Skipping all data transfer for now since memory is faulty.
+sw $3, 100($2)
+Write word from register $3 to mem[$2 + 100].
+
+Instruction:
+0x2b    $2      $3      100
+101011  00010   00011   0000000001100100 = 0xAC430064
+31_26   25_21   20_16   15_0
+
+RegDst = 0
+Branch = 0
+MemRead = 0
+MemtoReg = 0
+MemWrite = 1
+ALUSrc = 1
+RegWrite = 0
+whb = 00
+ALUOp = 000
+
+0000 000 00 0110000 = 0x30
+
+---
+
+lhu $3, 100($2)
+Halfword memory to register.
+
+Instruction:
+0x25    $2      $3      100
+100101  00010   00011   0000000001100100 = 0x94430064
+
+RegDst = 0
+Branch = 0
+MemRead = 1
+MemtoReg = 1
+MemWrite = 0
+ALUSrc = 1
+RegWrite = 1
+whb = 01
+ALUOp = 000
+
+0000 000 01 1101100 = 0xEC
+
+---
+
+sh $3, 100($2)
+Halfword register $3 to mem[$2 + 100].
+
+Instruction:
+0x29    $2      $3      100
+101001  00010   00011   0000000001100100 = 0xA4430064
+
+RegDst = 0
+Branch = 0
+MemRead = 0
+MemWrite = 1
+ALUSrc = 1
+RegWrite = 0
+whb = 01
+ALUOp = 000
+
+0000 000 01 0110000 = 0xB0
+
+---
+
+lbu $3, 100($2)
+Byte from memory to register. $3 = mem[$2 + 100]
+
+Instruction:
+0x24    $2      $3      100
+100100  00010   00011   0000000001100100 = 0x90430064
+
+RegDst = 0
+Branch = 0
+MemRead = 1
+MemtoReg = 1
+MemWrite = 0
+ALUSrc = 1
+RegWrite = 1
+whb = 10
+ALUOp = 000
+
+0000 000 10 1101100 = 0x16C
+---
+
+sb $3, 100($2)
+Memory[$2 + 100] = $3. Byte from register to memory.
+
+Instruction:
+0x28    $2      $3      100
+101000  00010   00011   0000000001100100 = 0xA0430064
+
+RegDst = 0
+Branch = 0
+MemRead = 0
+MemWrite = 1
+ALUSrc = 1
+RegWrite = 0
+whb = 10
+ALUOp = 000
+
+0000 000 10 0110000 = 0x130
+
+---
+
+lui $3, 100
+$3 = 100 * 2^16. Loads constant in upper 16 bits.
+
+Instruction:
+0xf     0       $3      100
+001111  00000   00011   0000000001100100 = 0x3C030064
+31_26   25_21   20_16
+
+RegDst = 0
+Branch = 0
+MemRead = 0
+MemtoReg = 0
+MemWrite = 0
+ALUSrc = 1
+RegWrite = 1
+whb = 00
+ALUOp = 000
+
+0000 000 00 1100000 = 0x60
+This is just making $3 = 100, I don't know how to make 100 * 2^16.
 
 ---
 
@@ -87,4 +210,100 @@ RegDst = 1
 ALUOp = 110
 Rest all 0
 
-6041 on ROM, same position as add and sub.
+0x6041 on ROM, same position as add and sub.
+
+---
+
+or $3, $1, $2
+0       $1      $2      $3      0         0x25
+000000  00001   00010   00011   00000    100101 = 0x221825
+
+RegWrite = 1
+RegDst = 1 
+ALUOp = 110
+Rest all 0
+
+0x6041
+
+---
+
+nor $3, $1, $2
+0       $1      $2      $3      0       0x27
+000000  00001   00010   00011   00000   100111 = 0x221827
+
+RegWrite = 1 
+RegDst = 1 
+ALUOp = 110 
+Rest all 0
+
+0x6041
+
+---
+
+andi $3, $2, 100
+$3 = $2 & 100
+
+0xc     $2      $3      100
+001100  00010   00011   0000000001100100 = 0x30430064
+
+RegDst = 0
+Branch = 0
+MemRead = 0
+MemtoReg = 0
+MemWrite = 0
+ALUSrc = 1
+RegWrite = 1
+whb = 00
+ALUOp = 100
+
+0100 000 00 1100000 = 0x4060
+
+---
+
+ori $3, $2, 100
+$3 = $2 | 100
+
+0xd     $2      $3      100
+001101  00010   00011   0000000001100100 = 0x34430064
+
+0101 000 00 1100000 = 0x5060
+
+---
+
+beq $1, $2, 25
+if $1 == $2 go to PC + 4 + 100
+
+4       $1      $2      25
+000100   00001   00010  0000000000011001 = 0x10220019
+
+RegDst = x
+Branch = 1
+MemRead = x
+MemtoReg = x
+MemWrite = x
+ALUSrc = 0
+RegWrite = 0
+whb = 0
+ALUOp = 010 (subtract $2 from $1)
+
+0010 000000000010 = 0x2002
+
+
+----
+
+bne $1, $2, 25
+if $1 != $2 go to PC + 4 + 100
+
+5       $1      $2      25
+000101   00001   00010  0000000000011001 = 0x14220019
+
+RegDst = 0
+Branch = 1
+MemRead = 0
+MemtoReg = 0
+MemWrite = 0
+ALUSrc = 0
+RegWrite = 0
+whb = 0
+ALUOp = ???
+
