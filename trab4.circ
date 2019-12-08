@@ -64,44 +64,44 @@ This file is intended to be loaded by Logisim-evolution (https://github.com/reds
   <lib desc="#I/O" name="5"/>
   <lib desc="#HDL-IP" name="6">
     <tool name="VHDL Entity">
-      <a name="content">--------------------------------------------------------------------------------
--- HEIG-VD, institute REDS, 1400 Yverdon-les-Bains
--- Project :
--- File    :
--- Autor   :
--- Date    :
---
---------------------------------------------------------------------------------
--- Description :
---
---------------------------------------------------------------------------------
-
-library ieee;
-  use ieee.std_logic_1164.all;
-  --use ieee.numeric_std.all;
-
-entity VHDL_Component is
-  port(
-  ------------------------------------------------------------------------------
-  --Insert input ports below
-    horloge_i  : in  std_logic;                    -- input bit example
-    val_i      : in  std_logic_vector(3 downto 0); -- input vector example
-  ------------------------------------------------------------------------------
-  --Insert output ports below
-    max_o      : out std_logic;                    -- output bit example
-    cpt_o      : out std_logic_Vector(3 downto 0)  -- output vector example
-    );
-end VHDL_Component;
-
---------------------------------------------------------------------------------
---Complete your VHDL description below
-architecture type_architecture of VHDL_Component is
-
-
-begin
-
-
-end type_architecture;
+      <a name="content">--------------------------------------------------------------------------------&#13;
+-- HEIG-VD, institute REDS, 1400 Yverdon-les-Bains&#13;
+-- Project :&#13;
+-- File    :&#13;
+-- Autor   :&#13;
+-- Date    :&#13;
+--&#13;
+--------------------------------------------------------------------------------&#13;
+-- Description :&#13;
+--&#13;
+--------------------------------------------------------------------------------&#13;
+&#13;
+library ieee;&#13;
+  use ieee.std_logic_1164.all;&#13;
+  --use ieee.numeric_std.all;&#13;
+&#13;
+entity VHDL_Component is&#13;
+  port(&#13;
+  ------------------------------------------------------------------------------&#13;
+  --Insert input ports below&#13;
+    horloge_i  : in  std_logic;                    -- input bit example&#13;
+    val_i      : in  std_logic_vector(3 downto 0); -- input vector example&#13;
+  ------------------------------------------------------------------------------&#13;
+  --Insert output ports below&#13;
+    max_o      : out std_logic;                    -- output bit example&#13;
+    cpt_o      : out std_logic_Vector(3 downto 0)  -- output vector example&#13;
+    );&#13;
+end VHDL_Component;&#13;
+&#13;
+--------------------------------------------------------------------------------&#13;
+--Complete your VHDL description below&#13;
+architecture type_architecture of VHDL_Component is&#13;
+&#13;
+&#13;
+begin&#13;
+&#13;
+&#13;
+end type_architecture;&#13;
 </a>
     </tool>
   </lib>
@@ -267,6 +267,7 @@ end TCL_Generic;
     <wire from="(1090,160)" to="(1090,440)"/>
     <wire from="(1160,600)" to="(1200,600)"/>
     <wire from="(190,20)" to="(2420,20)"/>
+    <wire from="(2320,630)" to="(2320,670)"/>
     <wire from="(2350,90)" to="(2370,90)"/>
     <wire from="(610,510)" to="(610,580)"/>
     <wire from="(1720,620)" to="(2160,620)"/>
@@ -313,9 +314,6 @@ end TCL_Generic;
     </comp>
     <comp loc="(370,580)" name="PC"/>
     <comp lib="0" loc="(210,600)" name="Constant"/>
-    <comp lib="0" loc="(170,620)" name="Pin">
-      <a name="label" val="CLK"/>
-    </comp>
     <comp loc="(1680,740)" name="ALUControl"/>
     <comp lib="2" loc="(2400,100)" name="Multiplexer">
       <a name="width" val="32"/>
@@ -371,7 +369,9 @@ end TCL_Generic;
       <a name="facing" val="north"/>
       <a name="radix" val="16"/>
     </comp>
-    <comp lib="0" loc="(2320,630)" name="Clock"/>
+    <comp lib="0" loc="(170,620)" name="Clock">
+      <a name="label" val="CLK"/>
+    </comp>
   </circuit>
   <circuit name="Registers">
     <a name="circuit" val="Registers"/>
@@ -1102,8 +1102,8 @@ end TCL_Generic;
     <wire from="(980,480)" to="(980,620)"/>
     <wire from="(510,400)" to="(690,400)"/>
     <wire from="(700,440)" to="(750,440)"/>
-    <wire from="(1000,720)" to="(1120,720)"/>
     <wire from="(1000,840)" to="(1120,840)"/>
+    <wire from="(1000,720)" to="(1120,720)"/>
     <wire from="(1000,860)" to="(1120,860)"/>
     <wire from="(1000,900)" to="(1120,900)"/>
     <wire from="(1000,880)" to="(1120,880)"/>
@@ -1111,13 +1111,13 @@ end TCL_Generic;
     <wire from="(1000,920)" to="(1120,920)"/>
     <wire from="(1000,740)" to="(1120,740)"/>
     <wire from="(1000,760)" to="(1120,760)"/>
-    <wire from="(1000,680)" to="(1120,680)"/>
-    <wire from="(1000,700)" to="(1120,700)"/>
-    <wire from="(1000,660)" to="(1120,660)"/>
-    <wire from="(1000,640)" to="(1120,640)"/>
     <wire from="(1000,780)" to="(1120,780)"/>
     <wire from="(1000,800)" to="(1120,800)"/>
     <wire from="(1000,820)" to="(1120,820)"/>
+    <wire from="(1000,680)" to="(1120,680)"/>
+    <wire from="(1000,660)" to="(1120,660)"/>
+    <wire from="(1000,640)" to="(1120,640)"/>
+    <wire from="(1000,700)" to="(1120,700)"/>
     <wire from="(690,460)" to="(750,460)"/>
     <wire from="(620,490)" to="(620,560)"/>
     <wire from="(520,560)" to="(620,560)"/>
@@ -1691,20 +1691,24 @@ end TCL_Generic;
     <wire from="(440,340)" to="(440,460)"/>
     <comp lib="4" loc="(1110,1160)" name="RAM">
       <a name="addrWidth" val="24"/>
+      <a name="trigger" val="falling"/>
       <a name="databus" val="bibus"/>
     </comp>
     <comp lib="4" loc="(1110,320)" name="RAM">
       <a name="addrWidth" val="24"/>
+      <a name="trigger" val="falling"/>
       <a name="databus" val="bibus"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="4" loc="(1110,600)" name="RAM">
       <a name="addrWidth" val="24"/>
+      <a name="trigger" val="falling"/>
       <a name="databus" val="bibus"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="4" loc="(1110,880)" name="RAM">
       <a name="addrWidth" val="24"/>
+      <a name="trigger" val="falling"/>
       <a name="databus" val="bibus"/>
     </comp>
     <comp lib="0" loc="(780,780)" name="Splitter">
@@ -2059,14 +2063,19 @@ end TCL_Generic;
     <wire from="(790,760)" to="(790,770)"/>
     <wire from="(790,720)" to="(790,730)"/>
     <wire from="(790,790)" to="(790,800)"/>
-    <wire from="(790,780)" to="(790,790)"/>
     <wire from="(790,800)" to="(790,810)"/>
     <wire from="(790,810)" to="(790,820)"/>
     <wire from="(790,830)" to="(790,840)"/>
     <wire from="(790,820)" to="(790,830)"/>
+    <wire from="(790,780)" to="(790,790)"/>
     <wire from="(810,520)" to="(920,520)"/>
-    <wire from="(780,580)" to="(790,580)"/>
     <wire from="(780,640)" to="(790,640)"/>
+    <wire from="(780,580)" to="(790,580)"/>
+    <wire from="(780,590)" to="(790,590)"/>
+    <wire from="(780,610)" to="(790,610)"/>
+    <wire from="(780,600)" to="(790,600)"/>
+    <wire from="(780,630)" to="(790,630)"/>
+    <wire from="(780,620)" to="(790,620)"/>
     <wire from="(780,650)" to="(790,650)"/>
     <wire from="(780,660)" to="(790,660)"/>
     <wire from="(780,680)" to="(790,680)"/>
@@ -2076,11 +2085,6 @@ end TCL_Generic;
     <wire from="(780,550)" to="(790,550)"/>
     <wire from="(780,540)" to="(790,540)"/>
     <wire from="(780,530)" to="(790,530)"/>
-    <wire from="(780,630)" to="(790,630)"/>
-    <wire from="(780,620)" to="(790,620)"/>
-    <wire from="(780,610)" to="(790,610)"/>
-    <wire from="(780,600)" to="(790,600)"/>
-    <wire from="(780,590)" to="(790,590)"/>
     <comp lib="0" loc="(760,520)" name="Splitter">
       <a name="fanout" val="16"/>
       <a name="incoming" val="16"/>
@@ -2113,11 +2117,28 @@ end TCL_Generic;
     <wire from="(270,260)" to="(450,260)"/>
     <wire from="(510,250)" to="(510,260)"/>
     <wire from="(510,230)" to="(510,250)"/>
+    <wire from="(470,420)" to="(510,420)"/>
+    <wire from="(470,460)" to="(510,460)"/>
     <wire from="(470,370)" to="(510,370)"/>
     <wire from="(470,330)" to="(510,330)"/>
+    <wire from="(470,270)" to="(510,270)"/>
+    <wire from="(470,280)" to="(510,280)"/>
+    <wire from="(470,300)" to="(510,300)"/>
+    <wire from="(470,320)" to="(510,320)"/>
+    <wire from="(470,310)" to="(510,310)"/>
+    <wire from="(470,290)" to="(510,290)"/>
+    <wire from="(470,340)" to="(510,340)"/>
+    <wire from="(470,350)" to="(510,350)"/>
+    <wire from="(470,360)" to="(510,360)"/>
     <wire from="(470,440)" to="(510,440)"/>
-    <wire from="(470,460)" to="(510,460)"/>
+    <wire from="(470,430)" to="(510,430)"/>
+    <wire from="(470,410)" to="(510,410)"/>
+    <wire from="(470,400)" to="(510,400)"/>
+    <wire from="(470,390)" to="(510,390)"/>
+    <wire from="(470,380)" to="(510,380)"/>
+    <wire from="(470,450)" to="(510,450)"/>
     <wire from="(470,470)" to="(510,470)"/>
+    <wire from="(470,480)" to="(510,480)"/>
     <wire from="(470,490)" to="(510,490)"/>
     <wire from="(470,500)" to="(510,500)"/>
     <wire from="(470,510)" to="(510,510)"/>
@@ -2126,23 +2147,6 @@ end TCL_Generic;
     <wire from="(470,540)" to="(510,540)"/>
     <wire from="(470,560)" to="(510,560)"/>
     <wire from="(470,550)" to="(510,550)"/>
-    <wire from="(470,480)" to="(510,480)"/>
-    <wire from="(470,450)" to="(510,450)"/>
-    <wire from="(470,430)" to="(510,430)"/>
-    <wire from="(470,420)" to="(510,420)"/>
-    <wire from="(470,410)" to="(510,410)"/>
-    <wire from="(470,400)" to="(510,400)"/>
-    <wire from="(470,340)" to="(510,340)"/>
-    <wire from="(470,270)" to="(510,270)"/>
-    <wire from="(470,280)" to="(510,280)"/>
-    <wire from="(470,300)" to="(510,300)"/>
-    <wire from="(470,290)" to="(510,290)"/>
-    <wire from="(470,320)" to="(510,320)"/>
-    <wire from="(470,310)" to="(510,310)"/>
-    <wire from="(470,350)" to="(510,350)"/>
-    <wire from="(470,390)" to="(510,390)"/>
-    <wire from="(470,380)" to="(510,380)"/>
-    <wire from="(470,360)" to="(510,360)"/>
     <wire from="(530,240)" to="(600,240)"/>
     <comp lib="0" loc="(270,260)" name="Pin">
       <a name="width" val="32"/>
