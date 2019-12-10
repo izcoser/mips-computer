@@ -285,7 +285,7 @@ ALUSrc = 0
 RegWrite = 0
 whb = 0
 ALUOp = 010 (subtract $2 from $1)
-
+beq/bne = 0
 0010 000000000010 = 0x2002
 
 
@@ -305,5 +305,7 @@ MemWrite = 0
 ALUSrc = 0
 RegWrite = 0
 whb = 0
-ALUOp = ???
+ALUOp = 010
+beq/bne = 1
+
 
