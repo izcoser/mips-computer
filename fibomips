@@ -1,0 +1,10 @@
+# Coloca 0 no $1 e 1 no $2
+
+add $1, $0, $0 # 0x00000820
+addi $2, $0, 1 # 0x20020000
+add $3, $1, $2 # 0x00221820 # soma $1 e $2, coloca no $3
+# printa $3
+add $1, $0, $2 # 0x00020820 # $1 = $2 (instrucao 3)
+add $2, $0, $3 # 0x00031020 # $2 = $3
+j 3 # 0x08000003
+#volta para instrucao 3
