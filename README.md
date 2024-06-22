@@ -1,4 +1,4 @@
-![image](https://github.com/izcoser/mips-computer/assets/76838137/dc484198-4274-43b8-abf6-ff51cb0b7122)# Mips Computer
+# Mips Computer
 
 Mips Computer is a computer architecture project to simulate a simple virtual computer using the MIPS instruction set.
 
