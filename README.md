@@ -42,4 +42,6 @@ The result is:
 
 ![image](https://github.com/izcoser/mips-computer/blob/master/images/hello_world.jpg?raw=true)
 
+As shown above, we're just taking ALU output and writing to the TTY. A more appropriate solution would be to design a buffer component and plug it to the TTY instead.
+
 Other programs have been written for this virtual processor such as a Fibonacci sequence generator, as shown in trab5fib.circ, however it does not output to the terminal.
